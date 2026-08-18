@@ -1,90 +1,150 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+  <title>Đào Văn Giang | My Profile</title>
+  <meta name="description" content="My name is Đào Văn Giang." />
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+ 
+  <link rel="stylesheet" href="style.css" />
+ 
 
-  <title>Giới thiệu bản thân</title>
-
-  <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem("theme");
+      var theme = saved === "light" || saved === "dark" ? saved : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
 </head>
-
+ 
 <body>
-
+ 
   <header>
-    <h1>I'm Back</h1>
-
-    <nav>
+    <a href="#top" class="logo">Giang<span>.</span></a>
+ 
+    <nav id="main-nav">
       <a href="#about">Me</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
+ 
+    <div class="header-actions">
+      <button
+        id="theme-toggle"
+        class="icon-btn"
+        type="button"
+        aria-label="Chuyển đổi giao diện sáng/tối"
+      >
+        <span class="icon-sun" aria-hidden="true"></span>
+        <span class="icon-moon" aria-hidden="true"></span>
+      </button>
+ 
+      <button
+        id="nav-toggle"
+        class="icon-btn menu-btn"
+        type="button"
+        aria-label="Mở menu điều hướng"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
   </header>
-
-  <main>
-
+ 
+  <main id="top">
+ 
     <section class="hero">
-      <div>
-        <h2>I'm Đào Văn Giang</h2>
-
-        <p>
-          My first small website.
+      <div class="hero-text reveal">
+        <p class="eyebrow">Better than last day!</p>
+        <h1>Đào Văn Giang</h1>
+ 
+        <p class="lead">
+          Hello erveryone! My IT
         </p>
-
-        <button onclick="sayHello()">Bấm vào đây</button>
+ 
+        <div class="hero-actions">
+          <button id="hello-btn" type="button" class="btn-primary">
+            Bấm vào đây 
+          </button>
+          <a href="#contact" class="btn-ghost">Contact</a>
+        </div>
       </div>
-
-      <div class="avatar">
-        👨‍💻
+ 
+      <div class="avatar-wrap reveal">
+        <span class="ripple"></span>
+        <span class="ripple ripple-delay"></span>
+        <div class="avatar">👨‍💻</div>
       </div>
     </section>
-
-
-    <section id="about">
+ 
+ 
+    <section id="about" class="reveal">
+      <p class="section-eyebrow">01 · Me</p>
       <h2>It's me</h2>
-
-      <p>
-        22/10/2005
-      </p>
-
-      <p>
-        Fighting!
-      </p>
+ 
+      <div class="about-grid">
+        <p>
+           <strong>22/10/2005</strong> 
+        </p>
+        <p class="motto">Fighting!</p>
+      </div>
     </section>
-
-
-    <section id="skills">
+ 
+ 
+    <section id="skills" class="reveal">
+      <p class="section-eyebrow">02 · Sở thích</p>
       <h2>Skills</h2>
-
+ 
       <div class="skills">
         <span>Soccer</span>
         <span>Swimming</span>
       </div>
     </section>
-
-
-    <section id="contact">
+ 
+ 
+    <section id="contact" class="reveal">
+      <p class="section-eyebrow">03 · Liên hệ</p>
       <h2>Contact</h2>
-
-      <p>Email: daovangiang2210@gmail.com</p>
-
-      <p>
-        GitHub:
-        <a href="https://github.com/G-libra/myeyes/" target="_blank">
-          github.com/G-libra/myeyes
+ 
+      <div class="contact-list">
+        <a class="contact-item" href="mailto:daovangiang2210@gmail.com">
+          <span aria-hidden="true">✉️</span>
+          <span>daovangiang2210@gmail.com</span>
         </a>
-      </p>
+ 
+        <a
+          class="contact-item"
+          href="https://github.com/G-libra/myeyes/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span aria-hidden="true"></span>
+          <span>github.com/G-libra/myeyes</span>
+        </a>
+      </div>
     </section>
-
+ 
   </main>
-
-
+ 
+ 
   <footer>
     <p>© 2026 Đào Văn Giang</p>
   </footer>
-
-
+ 
+ 
   <script src="script.js"></script>
-
+ 
 </body>
 </html>
