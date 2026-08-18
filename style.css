@@ -1,33 +1,42 @@
-* {
+ {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
  
-/* ===== Design tokens ===== */
+/* ============================================================
+   DESIGN TOKENS — Cyberpunk / đơn sắc (một tông neon cyan duy nhất
+   trên nền gần-đen, không pha thêm màu thứ hai)
+   ============================================================ */
 :root,
 [data-theme="light"] {
-  --bg: #f7f7f5;
+  --bg: #f2f5f6;
   --surface: #ffffff;
-  --ink: #16181d;
-  --muted: #6b7280;
-  --line: #e5e5e0;
-  --accent: #0ea5a4;
+  --surface-alt: #e9eef0;
+  --ink: #0a1113;
+  --muted: #55666b;
+  --line: #d7dee0;
+  --accent: #0891a8;
   --accent-ink: #ffffff;
-  --spark: #ff6b4a;
-  --shadow: 0 1px 3px rgba(16, 18, 22, 0.06);
+  --glow: rgba(8, 145, 168, 0.22);
+  --glow-strong: rgba(8, 145, 168, 0.4);
+  --shadow: 0 1px 3px rgba(10, 17, 19, 0.08);
+  --grid-line: rgba(8, 145, 168, 0.05);
 }
  
 [data-theme="dark"] {
-  --bg: #0f1115;
-  --surface: #17191f;
-  --ink: #edeef1;
-  --muted: #9aa0ac;
-  --line: #2a2d35;
-  --accent: #2dd4d3;
-  --accent-ink: #08111a;
-  --spark: #ff8368;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --bg: #05080a;
+  --surface: #0d1318;
+  --surface-alt: #111a20;
+  --ink: #e6f5f7;
+  --muted: #7c9299;
+  --line: #1c2a30;
+  --accent: #00f5ff;
+  --accent-ink: #00181c;
+  --glow: rgba(0, 245, 255, 0.25);
+  --glow-strong: rgba(0, 245, 255, 0.55);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --grid-line: rgba(0, 245, 255, 0.05);
 }
  
 html {
@@ -48,10 +57,13 @@ html {
  
 body {
   font-family: "Inter", Arial, Helvetica, sans-serif;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 42px 42px;
   color: var(--ink);
   line-height: 1.6;
-  transition: background 0.25s ease, color 0.25s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
  
 h1,
@@ -74,9 +86,10 @@ header {
   top: 0;
   z-index: 50;
  
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--glow);
  
   padding: 16px 40px;
  
@@ -88,12 +101,14 @@ header {
 .logo {
   font-size: 20px;
   font-weight: 600;
+  letter-spacing: 0.02em;
   text-decoration: none;
   color: var(--ink);
 }
  
 .logo span {
   color: var(--accent);
+  text-shadow: 0 0 10px var(--glow-strong);
 }
  
 nav {
@@ -104,11 +119,13 @@ nav {
 nav a {
   color: var(--muted);
   text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   position: relative;
   padding-bottom: 3px;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
  
 nav a::after {
@@ -119,12 +136,14 @@ nav a::after {
   width: 0;
   height: 2px;
   background: var(--accent);
-  transition: width 0.25s ease;
+  box-shadow: 0 0 8px var(--glow-strong);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
  
 nav a:hover,
 nav a:focus-visible {
   color: var(--ink);
+  text-shadow: 0 0 10px var(--glow);
 }
  
 nav a:hover::after,
@@ -134,7 +153,7 @@ nav a.active::after {
 }
  
 nav a.active {
-  color: var(--ink);
+  color: var(--accent);
 }
  
 .header-actions {
@@ -155,11 +174,12 @@ nav a.active {
   border-radius: 50%;
  
   cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.15s ease;
+  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
  
 .icon-btn:hover {
   border-color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
   transform: translateY(-1px);
 }
  
@@ -223,13 +243,19 @@ section {
   margin-bottom: 25px;
   padding: 40px;
  
-  transition: background 0.25s ease, border-color 0.25s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+ 
+section:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
 }
  
 .section-eyebrow {
+  font-family: "Space Grotesk", monospace;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 8px;
 }
@@ -250,7 +276,8 @@ section p {
 .reveal {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
  
 .reveal.is-visible {
@@ -269,7 +296,9 @@ section p {
 }
  
 .eyebrow {
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 10px;
 }
@@ -297,7 +326,7 @@ section p {
 }
  
 .btn-primary {
-  padding: 12px 22px;
+  padding: 12px 24px;
  
   background: var(--accent);
   color: var(--accent-ink);
@@ -305,20 +334,23 @@ section p {
   border: 1px solid var(--accent);
   border-radius: 999px;
  
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
  
   cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.2s ease;
+  transition: transform 0.15s ease, box-shadow 0.25s ease, opacity 0.2s ease;
 }
  
 .btn-primary:hover {
   transform: translateY(-2px);
-  opacity: 0.92;
+  box-shadow: 0 0 20px var(--glow-strong);
+  opacity: 0.95;
 }
  
 .btn-ghost {
-  padding: 12px 22px;
+  padding: 12px 24px;
  
   background: transparent;
   color: var(--ink);
@@ -327,15 +359,18 @@ section p {
   border: 1px solid var(--line);
   border-radius: 999px;
  
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
  
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.25s ease;
 }
  
 .btn-ghost:hover {
   border-color: var(--accent);
   color: var(--accent);
+  box-shadow: 0 0 16px var(--glow);
 }
  
 /* ===== Avatar + water-ripple signature ===== */
@@ -364,6 +399,7 @@ section p {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 50%;
+  box-shadow: 0 0 24px var(--glow);
  
   font-size: 70px;
 }
@@ -401,8 +437,9 @@ section p {
 }
  
 .motto {
-  color: var(--ink) !important;
+  color: var(--accent) !important;
   font-weight: 600;
+  text-shadow: 0 0 12px var(--glow);
 }
  
 /* ===== Skills ===== */
@@ -417,7 +454,7 @@ section p {
  
   padding: 8px 16px;
  
-  background: var(--bg);
+  background: var(--surface-alt);
   color: var(--ink);
  
   border: 1px solid var(--line);
@@ -426,11 +463,12 @@ section p {
   font-size: 14px;
   font-weight: 500;
  
-  transition: border-color 0.2s ease, transform 0.15s ease;
+  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
  
 .skills span:hover {
   border-color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
   transform: translateY(-2px);
 }
  
@@ -455,12 +493,13 @@ section p {
   border: 1px solid var(--line);
   border-radius: 999px;
  
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
  
 .contact-item:hover {
   border-color: var(--accent);
   color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
 }
  
 /* ===== Footer ===== */
@@ -471,7 +510,174 @@ footer {
  
   text-align: center;
   padding: 25px 20px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+ 
+/* ============================================================
+   WEBSITE SECTION — trước đây dùng màu cứng (#181818, #333...),
+   nay chuyển hết sang design tokens để đồng bộ với phần còn lại
+   ============================================================ */
+.website-section {
+  background: var(--surface);
+  color: var(--ink);
+  padding: 35px;
+  margin-top: 30px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+ 
+.website-section:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+ 
+.website-section h2 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  color: var(--ink);
+}
+ 
+.website-form {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr auto;
+  gap: 15px;
+}
+ 
+.website-form input,
+.student-search input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--surface-alt);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+ 
+.website-form input::placeholder,
+.student-search input::placeholder {
+  color: var(--muted);
+}
+ 
+.website-form input:focus,
+.student-search input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow);
+}
+ 
+.website-form button {
+  padding: 14px 25px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
   font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.15s ease, opacity 0.2s ease;
+}
+ 
+.website-form button:hover {
+  box-shadow: 0 0 18px var(--glow-strong);
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+ 
+.website-description {
+  margin-top: 12px;
+  color: var(--muted);
+}
+ 
+.student-search {
+  margin-top: 25px;
+  max-width: 450px;
+}
+ 
+#studentList {
+  margin-top: 25px;
+}
+ 
+.student-item {
+  padding: 20px 4px;
+  border-top: 1px solid var(--line);
+ 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+ 
+  border-radius: 8px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+ 
+.student-item:hover {
+  background: var(--surface-alt);
+  box-shadow: inset 0 0 0 1px var(--glow);
+}
+ 
+.student-info h3 {
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: var(--ink);
+}
+ 
+.student-info a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+ 
+.student-info a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+ 
+.student-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+ 
+.student-actions button {
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-alt);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+ 
+.student-actions button:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
+  transform: translateY(-1px);
+}
+ 
+.student-actions .delete-btn {
+  color: var(--muted);
+}
+ 
+.student-actions .delete-btn:hover {
+  color: var(--ink);
+}
+ 
+.no-student {
+  padding: 25px 0;
+  color: var(--muted);
+  text-align: center;
+  border-top: 1px solid var(--line);
 }
  
 /* ===== Responsive ===== */
@@ -504,6 +710,23 @@ footer {
  
   .menu-btn {
     display: flex;
+  }
+ 
+  .website-form {
+    grid-template-columns: 1fr;
+  }
+ 
+  .student-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+ 
+  .student-actions {
+    width: 100%;
+  }
+ 
+  .student-actions button {
+    flex: 1;
   }
 }
  
@@ -551,12 +774,16 @@ footer {
   .about-grid {
     flex-direction: column;
   }
+ 
+  .website-section {
+    padding: 22px;
+  }
 }
  
-/* Focus visibility for accessibility */
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
+  box-shadow: 0 0 0 4px var(--glow);
 }
