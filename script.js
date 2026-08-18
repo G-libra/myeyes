@@ -1,3 +1,3 @@
 function sayHello() {
-  alert("Xin chào! Rất vui được gặp bạn 👋");
+  alert("Thanks for visiting my profile!");
 }
